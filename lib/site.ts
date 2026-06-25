@@ -20,17 +20,17 @@ export const siteConfig = {
   social: [
     {
       name: "Instagram",
-      href: "https://instagram.com/rdvapp",
+      href: "https://www.instagram.com/rdv_congo?igsh=MWo5eWJrZDdpcDNxNw==",
       icon: "instagram" as const,
     },
     {
       name: "Facebook",
-      href: "https://facebook.com/rdvapp",
+      href: "https://www.facebook.com/profile.php?id=61591306469758",
       icon: "facebook" as const,
     },
     {
       name: "WhatsApp",
-      href: "https://wa.me/243000000000",
+      href: "https://wa.me/243991760427",
       icon: "whatsapp" as const,
     },
     {
@@ -40,7 +40,7 @@ export const siteConfig = {
     },
     {
       name: "TikTok",
-      href: "https://tiktok.com/@rdvapp",
+      href: "https://www.tiktok.com/@rdv_congo?_r=1&_t=ZS-97VeWGBshgl",
       icon: "tiktok" as const,
     },
   ],
