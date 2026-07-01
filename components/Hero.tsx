@@ -48,26 +48,26 @@ export default function Hero() {
         priority
         quality={85}
         className="object-cover object-[center_40%]"
-        sizes="100vw"
+        sizes="(max-width: 768px) 100%, 100vw"
       />
 
       <div className="hero-overlay absolute inset-0" aria-hidden />
       <div className="hero-overlay-bottom absolute inset-0" aria-hidden />
 
       <div className="hero-content">
-        <span className="badge-hero mb-2 line-clamp-2 w-fit max-w-full text-[11px] leading-snug sm:mb-3 sm:text-xs">
+        <span className="badge-hero mb-2 max-w-full text-[11px] leading-snug sm:mb-3 sm:text-xs">
           {hero.badge}
         </span>
 
-        <h1 className="section-title-on-dark max-w-2xl text-on-dark drop-shadow-sm">
+        <h1 className="section-title-on-dark max-w-full text-on-dark drop-shadow-sm">
           {hero.title}
         </h1>
 
-        <p className="mt-2 line-clamp-2 max-w-xl text-sm leading-snug text-on-dark-muted drop-shadow-sm sm:mt-2.5 sm:line-clamp-3 sm:text-base lg:max-w-2xl">
+        <p className="mt-2 max-w-full text-sm leading-snug text-on-dark-muted drop-shadow-sm sm:mt-2.5 sm:text-base">
           {hero.subtitle}
         </p>
 
-        <div className="mt-3 flex flex-col gap-2 sm:mt-4 sm:flex-row sm:gap-3">
+        <div className="mt-3 flex w-full min-w-0 flex-col gap-2 sm:mt-4 sm:flex-row sm:gap-3">
           <HeroButton button={hero.buttons.primary} variant="primary" />
           <HeroButton button={hero.buttons.secondary} variant="ghost" />
         </div>

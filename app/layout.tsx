@@ -49,7 +49,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={`${geistSans.variable} h-full antialiased`}>
-      <body className="min-h-full overflow-x-hidden bg-brand-muted text-default">{children}</body>
+      <body className="page-shell min-h-full w-full max-w-full overflow-x-clip bg-brand-muted text-default">
+        {children}
+      </body>
     </html>
   );
 }

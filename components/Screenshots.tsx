@@ -80,7 +80,7 @@ export default function Screenshots() {
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
           {screens.map((screen) => (
-            <figure key={screen.id} className="flex flex-col items-center">
+            <figure key={screen.id} className="flex min-w-0 flex-col items-center">
               <div className="screen-frame">
                 <Image
                   src={screen.src}

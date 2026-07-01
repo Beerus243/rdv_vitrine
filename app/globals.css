@@ -33,6 +33,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + 0.5rem);
+  overflow-x: clip;
+  width: 100%;
 }
 
 [id] {
@@ -43,10 +45,19 @@ body {
   background-color: var(--pinkaccent-muted);
   color: var(--text-default);
   font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* ─── Typographie (contrastes garantis) ─── */
 @layer components {
+  .page-shell {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
   .text-default {
     color: var(--text-default);
   }
@@ -118,14 +129,16 @@ body {
   /* Badge lisible sur bannière sombre */
   .badge-hero {
     display: inline-block;
+    max-width: 100%;
     border-radius: 9999px;
     border: 1px solid rgb(255 255 255 / 0.25);
     background-color: rgb(0 0 0 / 0.45);
-    padding: 0.35rem 1rem;
+    padding: 0.35rem 0.75rem;
     font-size: 0.875rem;
     font-weight: 600;
     color: #ffffff;
     backdrop-filter: blur(8px);
+    word-break: break-word;
   }
 
   /* ─── Liens ─── */
@@ -162,6 +175,15 @@ body {
     color: #ffffff;
     box-shadow: var(--shadow-pinkaccent);
     transition: background-color 0.2s ease;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 639px) {
+    .btn-primary,
+    .btn-ghost-light {
+      padding-inline: 1rem;
+    }
   }
 
   .btn-primary:hover {
@@ -180,6 +202,8 @@ body {
     color: #ffffff;
     backdrop-filter: blur(6px);
     transition: background-color 0.2s ease, border-color 0.2s ease;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .btn-ghost-light:hover {
@@ -230,11 +254,19 @@ body {
     max-width: 72rem;
     margin-inline: auto;
     padding-inline: 1rem;
+    box-sizing: border-box;
+    min-width: 0;
   }
 
   @media (min-width: 640px) {
     .section-container {
       padding-inline: 1.5rem;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .section-container {
+      padding-inline: 0.875rem;
     }
   }
 
@@ -305,6 +337,8 @@ body {
   /* ─── Hero ─── */
   .hero-section {
     position: relative;
+    width: 100%;
+    max-width: 100%;
     height: 22rem;
     overflow: hidden;
   }
@@ -325,12 +359,15 @@ body {
     position: relative;
     z-index: 10;
     display: flex;
-    height: 100%;
+    width: 100%;
     max-width: 72rem;
+    height: 100%;
+    min-width: 0;
     flex-direction: column;
     justify-content: flex-end;
     margin-inline: auto;
-    padding: 0.5rem 1rem 1.25rem;
+    padding: 0.5rem 0.875rem 1.25rem;
+    box-sizing: border-box;
   }
 
   @media (min-width: 640px) {
@@ -357,7 +394,7 @@ body {
   .screen-frame {
     position: relative;
     width: 100%;
-    max-width: 11rem;
+    max-width: 100%;
     aspect-ratio: 9 / 19.5;
     overflow: hidden;
     border-radius: 1.25rem;
@@ -442,50 +479,54 @@ body {
   }
 
   /* ─── Menu mobile ─── */
-  .mobile-nav {
-    pointer-events: none;
-    visibility: hidden;
-  }
-
-  .mobile-nav-open {
-    pointer-events: auto;
-    visibility: visible;
-  }
-
-  .mobile-nav-backdrop {
+  .mobile-nav-overlay {
     position: fixed;
     inset: 0;
     top: var(--header-height);
-    border: 0;
-    background-color: rgb(10 10 20 / 0.45);
-    opacity: 0;
-    transition: opacity 0.25s ease;
+    z-index: 40;
+    animation: mobile-nav-fade-in 0.2s ease;
   }
 
-  .mobile-nav-open .mobile-nav-backdrop {
-    opacity: 1;
+  @keyframes mobile-nav-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .mobile-nav-backdrop {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background-color: rgb(10 10 20 / 0.45);
   }
 
   .mobile-nav-panel {
-    position: fixed;
-    top: var(--header-height);
+    position: absolute;
+    top: 0;
     right: 0;
     display: flex;
-    width: min(100%, 320px);
-    height: calc(100dvh - var(--header-height));
+    width: min(100%, 20rem);
+    height: 100%;
     flex-direction: column;
     gap: 0.5rem;
     overflow-y: auto;
     border-left: 1px solid var(--border);
     background-color: var(--surface);
     padding: 1.25rem;
-    transform: translateX(100%);
-    transition: transform 0.25s ease;
     box-shadow: -8px 0 24px rgb(0 0 0 / 0.08);
+    animation: mobile-nav-slide-in 0.25s ease;
   }
 
-  .mobile-nav-open .mobile-nav-panel {
-    transform: translateX(0);
+  @keyframes mobile-nav-slide-in {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
 
   .mobile-nav-link {

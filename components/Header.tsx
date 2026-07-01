@@ -20,12 +20,14 @@ export default function Header() {
   }
 
   return (
-    <header className="site-header sticky top-0 z-50 border-b border-default bg-surface/95 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+    <header className="site-header sticky top-0 z-50 w-full max-w-full border-b border-default bg-surface/95 backdrop-blur-md">
+      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-3.5 sm:px-6">
         <Logo size="md" onClick={closeMenu} />
 
-        {/* Desktop */}
-        <nav className="hidden items-center gap-6 text-sm lg:flex" aria-label="Navigation principale">
+        <nav
+          className="hidden items-center gap-6 text-sm lg:flex"
+          aria-label="Navigation principale"
+        >
           {siteConfig.nav.map((item) =>
             item.cta ? (
               <a key={item.href} href={item.href} className="btn-primary px-4 py-2 text-sm">
@@ -39,10 +41,9 @@ export default function Header() {
           )}
         </nav>
 
-        {/* Mobile hamburger */}
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-default transition hover:bg-brand-light lg:hidden"
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-default transition hover:bg-brand-light lg:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
@@ -52,42 +53,45 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile menu panel */}
-      <div
-        id="mobile-nav"
-        className={`mobile-nav lg:hidden ${menuOpen ? "mobile-nav-open" : ""}`}
-        aria-hidden={!menuOpen}
-      >
-        <button
-          type="button"
-          className="mobile-nav-backdrop"
-          aria-label="Fermer le menu"
-          onClick={closeMenu}
-        />
-        <nav className="mobile-nav-panel" aria-label="Navigation mobile">
-          {siteConfig.nav.map((item) =>
-            item.cta ? (
-              <a
-                key={item.href}
-                href={item.href}
-                className="btn-primary w-full text-center"
-                onClick={closeMenu}
-              >
-                {item.label}
-              </a>
-            ) : (
-              <a
-                key={item.href}
-                href={item.href}
-                className="mobile-nav-link"
-                onClick={closeMenu}
-              >
-                {item.label}
-              </a>
-            ),
-          )}
-        </nav>
-      </div>
+      {menuOpen && (
+        <div
+          id="mobile-nav"
+          className="mobile-nav-overlay lg:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu de navigation"
+        >
+          <button
+            type="button"
+            className="mobile-nav-backdrop"
+            aria-label="Fermer le menu"
+            onClick={closeMenu}
+          />
+          <nav className="mobile-nav-panel" aria-label="Navigation mobile">
+            {siteConfig.nav.map((item) =>
+              item.cta ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="btn-primary w-full text-center"
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="mobile-nav-link"
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </a>
+              ),
+            )}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

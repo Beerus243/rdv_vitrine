@@ -32,7 +32,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Header />
-      <main>
+      <main className="page-shell w-full max-w-full">
         <Hero />
         <Features />
         <Screenshots />
