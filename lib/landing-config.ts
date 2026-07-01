@@ -48,13 +48,13 @@ export const landingConfig = {
       "Installez la version bêta Android et soyez parmi les premiers à tester la plateforme.",
     /**
      * Mode de téléchargement :
-     * - "internal-api" → /api/download (recommandé, headers APK corrects)
-     * - "static"       → fichier direct dans public/ (ex. /rdv.apk)
+     * - "static"       → /rdv.apk (recommandé pour gros APK > 4 Mo, ex. Vercel)
+     * - "internal-api" → /api/download (headers APK corrects, dev local)
      * - "external"     → lien externe (Play Store, CDN, GitHub Releases…)
      *
      * Priorité : variable d'env NEXT_PUBLIC_DOWNLOAD_URL si définie.
      */
-    mode: "internal-api" as DownloadMode,
+    mode: "static" as DownloadMode,
     /** Lien si mode = "external" (ex. Play Store) */
     externalUrl: "https://play.google.com/store/apps/details?id=cd.rdv.app",
     /** Chemin si mode = "static" */

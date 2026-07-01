@@ -1,14 +1,16 @@
-import { existsSync, createReadStream, statSync } from "fs";
-import path from "path";
-import { Readable } from "stream";
+import { createReadStream, existsSync, statSync } from "fs";
+import { NextResponse } from "next/server";
 import { getApkDownloadName, getApkFilePath } from "@/lib/landing-config";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   const filePath = getApkFilePath();
   const fileName = getApkDownloadName();
 
   if (!existsSync(filePath)) {
-    return Response.json(
+    return NextResponse.json(
       {
         error: `APK non disponible. Placez le fichier ${fileName} dans le dossier public/.`,
       },
@@ -17,15 +19,15 @@ export async function GET() {
   }
 
   const stats = statSync(filePath);
-  const nodeStream = createReadStream(filePath);
-  const webStream = Readable.toWeb(nodeStream) as ReadableStream;
+  const stream = createReadStream(filePath);
 
-  return new Response(webStream, {
+  return new NextResponse(stream as unknown as BodyInit, {
     status: 200,
     headers: {
       "Content-Disposition": `attachment; filename="${fileName}"`,
       "Content-Type": "application/vnd.android.package-archive",
       "Content-Length": String(stats.size),
+      "Cache-Control": "public, max-age=3600",
     },
   });
 }

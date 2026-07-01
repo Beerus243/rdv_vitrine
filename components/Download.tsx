@@ -1,4 +1,5 @@
 import {
+  getApkDownloadName,
   getDownloadHref,
   getDownloadNote,
   isDownloadExternal,
@@ -9,6 +10,8 @@ export default function Download() {
   const { download } = landingConfig;
   const href = getDownloadHref();
   const external = isDownloadExternal();
+  const fileName = getApkDownloadName();
+  const useStaticDownload = !external && href.startsWith("/") && !href.startsWith("/api/");
 
   return (
     <section id={download.sectionId} className="section-muted section-block">
@@ -24,7 +27,9 @@ export default function Download() {
             className="btn-primary w-full sm:w-auto"
             {...(external
               ? { target: "_blank", rel: "noopener noreferrer" }
-              : { download: !href.startsWith("/api/") ? "" : undefined })}
+              : useStaticDownload
+                ? { download: fileName }
+                : {})}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -42,6 +47,10 @@ export default function Download() {
             {download.button.label}
           </a>
           <p className="max-w-md text-sm text-subtle">{getDownloadNote()}</p>
+          <p className="max-w-md text-xs text-subtle">
+            Le fichier fait environ 90 Mo — le téléchargement peut prendre
+            quelques secondes selon votre connexion.
+          </p>
         </div>
       </div>
     </section>
