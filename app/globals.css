@@ -732,6 +732,100 @@ body {
     background-color: var(--pinkaccent-light);
     color: var(--pinkaccent-text);
   }
+
+  /* ─── Pages légales ─── */
+  .legal-prose section + section {
+    margin-top: 2rem;
+  }
+
+  .legal-prose h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-default);
+  }
+
+  @media (min-width: 640px) {
+    .legal-prose h2 {
+      font-size: 1.25rem;
+    }
+  }
+
+  .legal-prose p,
+  .legal-prose li {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-subtle);
+  }
+
+  .legal-prose p + p,
+  .legal-prose ul {
+    margin-top: 0.75rem;
+  }
+
+  .legal-prose ul {
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  .legal-prose li + li {
+    margin-top: 0.35rem;
+  }
+
+  .legal-prose a {
+    font-weight: 500;
+    color: var(--pinkaccent-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+  }
+
+  .legal-prose a:hover {
+    color: var(--pinkaccent-dark);
+  }
+
+  .legal-prose strong {
+    font-weight: 600;
+    color: var(--text-default);
+  }
+
+  /* ─── WebView (app Flutter) ─── */
+  .webview-shell {
+    overflow-x: clip;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .webview-legal {
+    padding: 0.75rem 0 2rem;
+  }
+
+  .webview-legal-inner {
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .webview-legal-inner {
+      padding-inline: 1.25rem;
+    }
+  }
+
+  .webview-legal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-default);
+  }
+
+  .footer-webview-link {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    color: var(--text-subtle);
+    word-break: break-all;
+    transition: color 0.2s ease;
+  }
+
+  .footer-webview-link:hover {
+    color: var(--pinkaccent-text);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
