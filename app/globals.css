@@ -143,13 +143,32 @@ body {
 
   /* ─── Liens ─── */
   .link-nav {
+    position: relative;
     color: var(--text-subtle);
     font-weight: 500;
     transition: color 0.2s ease;
   }
 
+  .link-nav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.2rem;
+    width: 100%;
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--pinkaccent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
   .link-nav:hover {
     color: var(--pinkaccent-text);
+  }
+
+  .link-nav:hover::after {
+    transform: scaleX(1);
   }
 
   .link-footer {
@@ -174,7 +193,10 @@ body {
     font-weight: 600;
     color: #ffffff;
     box-shadow: var(--shadow-pinkaccent);
-    transition: background-color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
     max-width: 100%;
     box-sizing: border-box;
   }
@@ -188,6 +210,26 @@ body {
 
   .btn-primary:hover {
     background-color: var(--pinkaccent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px -12px rgb(232 53 122 / 0.55);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-pulse {
+    animation: btn-pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes btn-pulse {
+    0%,
+    100% {
+      box-shadow: var(--shadow-pinkaccent);
+    }
+    50% {
+      box-shadow: 0 16px 40px -8px rgb(232 53 122 / 0.6);
+    }
   }
 
   .btn-ghost-light {
@@ -201,7 +243,10 @@ body {
     font-weight: 600;
     color: #ffffff;
     backdrop-filter: blur(6px);
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
     max-width: 100%;
     box-sizing: border-box;
   }
@@ -209,6 +254,11 @@ body {
   .btn-ghost-light:hover {
     border-color: #ffffff;
     background-color: rgb(255 255 255 / 0.22);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost-light:active {
+    transform: translateY(0);
   }
 
   .btn-on-brand {
@@ -334,6 +384,11 @@ body {
     }
   }
 
+  /* ─── Header dynamique ─── */
+  .site-header-scrolled {
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.06);
+  }
+
   /* ─── Hero ─── */
   .hero-section {
     position: relative;
@@ -341,6 +396,54 @@ body {
     max-width: 100%;
     height: 22rem;
     overflow: hidden;
+  }
+
+  .hero-image-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .hero-image-wrap .hero-image {
+    animation: hero-ken-burns 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes hero-ken-burns {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.06);
+    }
+  }
+
+  .hero-enter {
+    opacity: 0;
+    transform: translateY(1rem);
+    animation: hero-enter 0.65s ease forwards;
+  }
+
+  .hero-enter-1 {
+    animation-delay: 0.1s;
+  }
+
+  .hero-enter-2 {
+    animation-delay: 0.22s;
+  }
+
+  .hero-enter-3 {
+    animation-delay: 0.34s;
+  }
+
+  .hero-enter-4 {
+    animation-delay: 0.46s;
+  }
+
+  @keyframes hero-enter {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (min-width: 640px) {
@@ -376,6 +479,20 @@ body {
     }
   }
 
+  /* ─── Révélation au scroll ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s ease;
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* ─── Cartes & captures ─── */
   .feature-card {
     border-radius: 1rem;
@@ -384,10 +501,55 @@ body {
     text-align: center;
     outline: 1px solid var(--border);
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
-    transition: box-shadow 0.2s ease;
+    transition:
+      box-shadow 0.25s ease,
+      transform 0.25s ease,
+      outline-color 0.25s ease;
   }
 
   .feature-card:hover {
+    box-shadow: var(--shadow-pinkaccent);
+    transform: translateY(-4px);
+    outline-color: rgb(232 53 122 / 0.25);
+  }
+
+  .feature-card:hover .icon-feature {
+    transform: scale(1.08);
+  }
+
+  .icon-feature {
+    transition: transform 0.25s ease;
+  }
+
+  .screen-card {
+    transition: transform 0.3s ease;
+  }
+
+  .screen-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .screen-card:hover .screen-frame {
+    box-shadow: var(--shadow-pinkaccent);
+    outline-color: rgb(232 53 122 / 0.2);
+  }
+
+  .screen-frame {
+    transition:
+      box-shadow 0.3s ease,
+      outline-color 0.3s ease;
+  }
+
+  .download-card {
+    border-radius: 1.25rem;
+    background-color: var(--surface);
+    padding: 1.75rem 1.25rem;
+    outline: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.05);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .download-card:hover {
     box-shadow: var(--shadow-pinkaccent);
   }
 
@@ -456,6 +618,21 @@ body {
     border-radius: 0.875rem;
     background-color: var(--pinkaccent-light);
     color: var(--pinkaccent-text);
+  }
+
+  .status-message {
+    animation: status-pop 0.4s ease;
+  }
+
+  @keyframes status-pop {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* ─── Réseaux sociaux ─── */
@@ -529,6 +706,19 @@ body {
     }
   }
 
+  .mobile-nav-item {
+    opacity: 0;
+    transform: translateX(0.75rem);
+    animation: mobile-nav-item-in 0.3s ease forwards;
+  }
+
+  @keyframes mobile-nav-item-in {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
   .mobile-nav-link {
     display: block;
     border-radius: 0.75rem;
@@ -541,5 +731,36 @@ body {
   .mobile-nav-link:hover {
     background-color: var(--pinkaccent-light);
     color: var(--pinkaccent-text);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-image-wrap .hero-image,
+  .hero-enter,
+  .btn-pulse,
+  .reveal,
+  .mobile-nav-overlay,
+  .mobile-nav-panel,
+  .mobile-nav-item,
+  .status-message {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .hero-enter,
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .btn-primary:hover,
+  .btn-ghost-light:hover,
+  .feature-card:hover,
+  .screen-card:hover {
+    transform: none;
   }
 }

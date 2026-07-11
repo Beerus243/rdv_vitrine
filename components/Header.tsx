@@ -7,6 +7,7 @@ import { siteConfig } from "@/lib/site";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -15,12 +16,21 @@ export default function Header() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   function closeMenu() {
     setMenuOpen(false);
   }
 
   return (
-    <header className="site-header sticky top-0 z-50 w-full max-w-full border-b border-default bg-surface/95 backdrop-blur-md">
+    <header
+      className={`site-header sticky top-0 z-50 w-full max-w-full border-b bg-surface/95 backdrop-blur-md transition-shadow duration-300 ${scrolled ? "site-header-scrolled border-transparent" : "border-default"}`}
+    >
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-3.5 sm:px-6">
         <Logo size="md" onClick={closeMenu} />
 
@@ -43,7 +53,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-default transition hover:bg-brand-light lg:hidden"
+          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-default transition-colors duration-200 hover:bg-brand-light active:scale-95 lg:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
@@ -68,12 +78,13 @@ export default function Header() {
             onClick={closeMenu}
           />
           <nav className="mobile-nav-panel" aria-label="Navigation mobile">
-            {siteConfig.nav.map((item) =>
+            {siteConfig.nav.map((item, index) =>
               item.cta ? (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="btn-primary w-full text-center"
+                  className="mobile-nav-item btn-primary w-full text-center"
+                  style={{ animationDelay: `${index * 60}ms` }}
                   onClick={closeMenu}
                 >
                   {item.label}
@@ -82,7 +93,8 @@ export default function Header() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="mobile-nav-link"
+                  className="mobile-nav-item mobile-nav-link"
+                  style={{ animationDelay: `${index * 60}ms` }}
                   onClick={closeMenu}
                 >
                   {item.label}

@@ -5,6 +5,7 @@ import {
   isDownloadExternal,
   landingConfig,
 } from "@/lib/landing-config";
+import Reveal from "@/components/Reveal";
 
 export default function Download() {
   const { download } = landingConfig;
@@ -16,15 +17,15 @@ export default function Download() {
   return (
     <section id={download.sectionId} className="section-muted section-block">
       <div className="section-container mx-auto max-w-3xl text-center">
-        <div className="section-header">
+        <Reveal className="section-header">
           <p className="badge-brand mb-3">{download.badge}</p>
           <h2 className="section-title">{download.title}</h2>
           <p className="section-lead">{download.description}</p>
-        </div>
-        <div className="mt-6 flex flex-col items-center gap-3 sm:mt-8">
+        </Reveal>
+        <Reveal delay={120} className="download-card mt-6 sm:mt-8">
           <a
             href={href}
-            className="btn-primary w-full sm:w-auto"
+            className="btn-primary btn-pulse w-full sm:w-auto"
             {...(external
               ? { target: "_blank", rel: "noopener noreferrer" }
               : useStaticDownload
@@ -46,12 +47,12 @@ export default function Download() {
             </svg>
             {download.button.label}
           </a>
-          <p className="max-w-md text-sm text-subtle">{getDownloadNote()}</p>
-          <p className="max-w-md text-xs text-subtle">
+          <p className="mt-4 max-w-md text-sm text-subtle">{getDownloadNote()}</p>
+          <p className="mt-2 max-w-md text-xs text-subtle">
             Le fichier fait environ 90 Mo — le téléchargement peut prendre
             quelques secondes selon votre connexion.
           </p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

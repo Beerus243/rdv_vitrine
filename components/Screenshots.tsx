@@ -7,6 +7,7 @@ import screenDark from "@/assets/screen/dark_mode.png";
 import screenDecouvert from "@/assets/screen/decouvert.jpg";
 import screenLight from "@/assets/screen/ligth_mode.png";
 import screenParametre from "@/assets/screen/parametre.jpg";
+import Reveal from "@/components/Reveal";
 
 type Screen = {
   id: string;
@@ -70,30 +71,32 @@ export default function Screenshots() {
   return (
     <section id="screenshots" className="section-surface section-block">
       <div className="section-container">
-        <div className="section-header">
+        <Reveal className="section-header">
           <p className="badge-brand mb-3">L&apos;application</p>
           <h2 className="section-title">Aperçu de l&apos;application</h2>
           <p className="section-lead">
             Une expérience simple, élégante et pensée pour la RDC.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
-          {screens.map((screen) => (
-            <figure key={screen.id} className="flex min-w-0 flex-col items-center">
-              <div className="screen-frame">
-                <Image
-                  src={screen.src}
-                  alt={screen.alt}
-                  fill
-                  sizes="(max-width: 640px) 42vw, (max-width: 1024px) 28vw, 200px"
-                  className="object-contain object-center"
-                />
-              </div>
-              <figcaption className="mt-2 text-center text-xs font-semibold text-brand sm:text-sm">
-                {screen.label}
-              </figcaption>
-            </figure>
+          {screens.map((screen, index) => (
+            <Reveal key={screen.id} delay={(index % 4) * 70} className="flex min-w-0 flex-col items-center">
+              <figure className="screen-card group flex w-full min-w-0 flex-col items-center">
+                <div className="screen-frame">
+                  <Image
+                    src={screen.src}
+                    alt={screen.alt}
+                    fill
+                    sizes="(max-width: 640px) 42vw, (max-width: 1024px) 28vw, 200px"
+                    className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <figcaption className="mt-2 text-center text-xs font-semibold text-brand sm:text-sm">
+                  {screen.label}
+                </figcaption>
+              </figure>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Reveal from "@/components/Reveal";
 import { getLeadApiEndpoint, landingConfig } from "@/lib/landing-config";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
@@ -45,11 +46,12 @@ export default function CTA() {
   return (
     <section id={waitlist.sectionId} className="bg-brand section-block">
       <div className="section-container mx-auto max-w-xl text-center">
-        <div className="section-header">
+        <Reveal className="section-header">
           <h2 className="section-title-on-dark">{waitlist.title}</h2>
           <p className="mt-3 text-on-dark-muted">{waitlist.description}</p>
-        </div>
+        </Reveal>
 
+        <Reveal delay={100}>
         <form
           onSubmit={handleSubmit}
           className="mt-6 flex flex-col gap-3 text-left sm:mt-8 sm:gap-4"
@@ -97,11 +99,12 @@ export default function CTA() {
               : waitlist.button.label}
           </button>
         </form>
+        </Reveal>
 
         {message && (
           <p
             role="status"
-            className={`mt-4 text-sm font-medium ${status === "error" ? "text-red-100" : "text-on-dark-muted"}`}
+            className={`status-message mt-4 text-sm font-medium ${status === "error" ? "text-red-100" : "text-on-dark-muted"}`}
           >
             {message}
           </p>
